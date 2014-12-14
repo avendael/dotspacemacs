@@ -1,0 +1,139 @@
+;; -*- mode: emacs-lisp -*-
+;; This file is loaded by Spacemacs at startup.
+;; It must be stored in your home directory.
+
+;; Configuration Layers
+;; --------------------
+
+(setq-default
+ ;; List of additional paths where to look for configuration layers.
+ ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
+ dotspacemacs-configuration-layer-path '()
+ ;; List of configuration layers to load.
+ dotspacemacs-configuration-layers '(avendael
+                                     company-mode
+                                     erlang-elixir
+                                     ;; github
+                                     javascript
+                                     osx
+                                     python
+                                     perspectives
+                                     themes-megapack)
+ ;; A list of packages and/or extensions that will not be install and loaded.
+ dotspacemacs-excluded-packages '(ac-ispell
+                                  evil-jumper
+                                  neotree
+                                  p4
+                                  powershell
+                                  powershell-mode))
+
+;; Settings
+;; --------
+
+(setq-default
+ ;; Default theme applied at startup
+ dotspacemacs-default-theme 'solarized-light
+ ;; The leader key
+ dotspacemacs-leader-key "SPC"
+ ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
+ ;; the commands bound to the current keystrokes.
+ dotspacemacs-guide-key-delay 0.4
+ ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
+ dotspacemacs-fullscreen-at-startup 1
+ ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
+ ;; overrides the default behavior of Emacs which recenters the point when
+ ;; it reaches the top or bottom of the screen
+ dotspacemacs-smooth-scrolling t
+ ;; If non nil pressing 'jk' in insert state, ido or helm will activate the
+ ;; evil leader.
+ dotspacemacs-feature-toggle-leader-on-jk nil
+ ;; The default package repository used if no explicit repository has been
+ ;; specified with an installed package.
+ ;; Not used for now.
+ dotspacemacs-default-package-repository nil
+)
+
+;; Avendael Functions
+;; ------------------
+(defun avendael/config-perspectives ()
+  (require 'persp-projectile)
+
+  (projectile-persp-bridge helm-projectile)
+  (setq projectile-switch-project-action 'helm-projectile))
+
+(defun avendael/config-gpg ()
+  (require 'epa-file)
+
+  (epa-file-enable)
+  (setq epa-file-cache-passphrase-for-symmetric-encryption t))
+
+(defun avendael/config-character-coding-system ()
+  (prefer-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (if (boundp 'buffer-file-coding-system)
+      (setq-default buffer-file-coding-system 'utf-8)
+    (setq buffer-file-coding-system 'utf-8))
+  (setq current-language-environment "UTF-8"))
+
+(defun avendael/config-ediff ()
+  (require 'ediff)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (setq ediff-split-window-function
+        (lambda (&optional arg)
+    (if (> (frame-width) 80)
+        (split-window-horizontally arg)
+      (split-window-vertically arg)))))
+
+(defun avendael/config-dired ()
+  (add-hook 'dired-mode-hook 
+            (lambda ()
+               (let ((name (buffer-name)))
+                 (if (not (string-match ":dired$" name))
+                     (rename-buffer (concat name ":dired") t)))))
+  (add-hook 'dired-mode-hook
+            (lambda ()
+              (define-key dired-mode-map (kbd "^")
+                (lambda () (interactive) (find-alternate-file ".."))))))
+
+(defun avendael/config-persp-projectile ()
+  (require 'persp-projectile)
+
+  (projectile-persp-bridge helm-projectile)
+  (setq projectile-switch-project-action 'helm-projectile))
+
+(defun avendael/config-line-numbers ()
+  (global-linum-mode 1)
+  (linum-relative-toggle))
+
+;; Initialization Hooks
+;; --------------------
+(defun dotspacemacs/init ()
+  "User initialization for Spacemacs. This function is called at the very
+ startup."
+  (avendael/config-dired)
+  (avendael/config-gpg)
+  (avendael/config-perspectives)
+  (avendael/config-persp-projectile)
+  (avendael/config-character-coding-system))
+
+(defun dotspacemacs/config ()
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
+  ;; VC extensions should follow symlinks
+  (setq vc-follow-symlinks 1)
+  ;; Workaround for ssh config ControlMaster auto and ControlPersist yes
+  (setq tramp-default-method "scpx")
+  ;; This is to allow yasnippet completions
+  (setq company-minimum-prefix-length 1)
+
+  (avendael/config-line-numbers))
+
+;; Custom variables
+;; ----------------
+
+;; Do not write anything in this section. This is where Emacs will
+;; auto-generate custom variable definitions.
