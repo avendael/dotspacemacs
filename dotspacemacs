@@ -13,7 +13,9 @@
  dotspacemacs-configuration-layers '(avendael
                                      company-mode
                                      erlang-elixir
+                                     git
                                      ;; github
+                                     html
                                      javascript
                                      osx
                                      python
@@ -32,14 +34,14 @@
 
 (setq-default
  ;; Default theme applied at startup
- dotspacemacs-default-theme 'solarized-light
+ dotspacemacs-default-theme 'monokai
  ;; The leader key
  dotspacemacs-leader-key "SPC"
  ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
  ;; the commands bound to the current keystrokes.
  dotspacemacs-guide-key-delay 0.4
  ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
- dotspacemacs-fullscreen-at-startup 1
+ dotspacemacs-fullscreen-at-startup nil
  ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
  ;; overrides the default behavior of Emacs which recenters the point when
  ;; it reaches the top or bottom of the screen
@@ -109,11 +111,21 @@
   (global-linum-mode 1)
   (linum-relative-toggle))
 
+(defun avendael/config-look-and-feel ()
+  (setq powerline-default-separator 'nil)
+  (set-face-attribute 'default nil :family "Inconsolata for Powerline" :height 140)
+  (setq initial-frame-alist (set-frame-parameter nil 'fullscreen 'fullheight))
+  (setq dotspacemacs-active-transparency 90)
+  (setq dotspacemacs-inactive-transparency 90)
+  (toggle-transparency))
+
 ;; Initialization Hooks
 ;; --------------------
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
+  ;; (set-frame-parameter (selected-frame) 'alpha '(100 100))
+
   (avendael/config-dired)
   (avendael/config-gpg)
   (avendael/config-perspectives)
@@ -127,10 +139,11 @@ This function is called at the very end of Spacemacs initialization."
   (setq vc-follow-symlinks 1)
   ;; Workaround for ssh config ControlMaster auto and ControlPersist yes
   (setq tramp-default-method "scpx")
-  ;; This is to allow yasnippet completions
+  ;; This is to allow yasnippet completion
   (setq company-minimum-prefix-length 1)
 
-  (avendael/config-line-numbers))
+  (avendael/config-line-numbers)
+  (avendael/config-look-and-feel))
 
 ;; Custom variables
 ;; ----------------
