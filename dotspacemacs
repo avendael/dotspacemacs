@@ -23,7 +23,6 @@
                                      themes-megapack)
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '(ac-ispell
-                                  evil-jumper
                                   neotree
                                   p4
                                   powershell
@@ -34,7 +33,7 @@
 
 (setq-default
  ;; Default theme applied at startup
- dotspacemacs-default-theme 'monokai
+ dotspacemacs-default-theme 'solarized-light
  ;; The leader key
  dotspacemacs-leader-key "SPC"
  ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
@@ -112,9 +111,22 @@
   (linum-relative-toggle))
 
 (defun avendael/config-look-and-feel ()
-  (setq powerline-default-separator 'nil)
   (set-face-attribute 'default nil :family "Inconsolata for Powerline" :height 140)
   (setq initial-frame-alist (set-frame-parameter nil 'fullscreen 'fullheight))
+
+  (setq powerline-default-separator nil)
+  ;; Set the powerline active face when the default theme is solarized-light
+  (when (eq spacemacs-cur-theme 'solarized-light)
+    (set-face-attribute 'powerline-active1
+                        nil :inherit 'mode-line :background "#93a1a1" :foreground "#eee8d5")
+    (set-face-attribute 'powerline-active2 nil
+                        :inherit 'mode-line :background "#eee8d5" :foreground "#fdff6e3")
+    (set-face-attribute 'powerline-inactive1 nil
+                        :inherit 'mode-line-inactive :background "#93a1a1" :foreground "#cccec4")
+    (set-face-attribute 'powerline-inactive2 nil
+                        :inherit 'mode-line :background "#eee8d5"))
+
+  ;; Set frame transparency levels
   (setq dotspacemacs-active-transparency 90)
   (setq dotspacemacs-inactive-transparency 90)
   (toggle-transparency))
@@ -124,8 +136,6 @@
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
-  ;; (set-frame-parameter (selected-frame) 'alpha '(100 100))
-
   (avendael/config-dired)
   (avendael/config-gpg)
   (avendael/config-perspectives)
