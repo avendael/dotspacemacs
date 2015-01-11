@@ -153,6 +153,8 @@ This function is called at the very end of Spacemacs initialization."
   (setq tramp-default-method "scpx")
   ;; This is to allow yasnippet completion
   (setq company-minimum-prefix-length 1)
+  ;; Obliterate trailing whitespaces before saving
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
   (avendael/config-line-numbers)
   (avendael/config-look-and-feel))
