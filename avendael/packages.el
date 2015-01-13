@@ -17,3 +17,11 @@ which require an initialization must be listed explicitly in the list.")
   (use-package pretty-mode
     :init
     (global-pretty-mode t)))
+
+(defun avendael/init-projectile ()
+  (use-package projectile
+    :init
+    (progn
+      (require 'persp-projectile)
+      (projectile-persp-bridge helm-projectile)
+      (setq projectile-switch-project-action 'helm-projectile))))
