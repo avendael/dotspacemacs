@@ -58,12 +58,6 @@
 
 ;; Avendael Functions
 ;; ------------------
-(defun avendael/config-perspectives ()
-  (require 'persp-projectile)
-
-  (projectile-persp-bridge helm-projectile)
-  (setq projectile-switch-project-action 'helm-projectile))
-
 (defun avendael/config-gpg ()
   (require 'epa-file)
 
