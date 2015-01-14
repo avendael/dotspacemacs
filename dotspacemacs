@@ -33,7 +33,7 @@
 
 (setq-default
  ;; Default theme applied at startup
- dotspacemacs-default-theme 'solarized-light
+ dotspacemacs-default-theme 'zenburn
  ;; The leader key
  dotspacemacs-leader-key "SPC"
  ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
@@ -86,7 +86,7 @@
       (split-window-vertically arg)))))
 
 (defun avendael/config-dired ()
-  (add-hook 'dired-mode-hook 
+  (add-hook 'dired-mode-hook
             (lambda ()
                (let ((name (buffer-name)))
                  (if (not (string-match ":dired$" name))
@@ -118,8 +118,7 @@
 
   ;; Set frame transparency levels
   (setq dotspacemacs-active-transparency 90)
-  (setq dotspacemacs-inactive-transparency 90)
-  (toggle-transparency))
+  (setq dotspacemacs-inactive-transparency 90))
 
 ;; Initialization Hooks
 ;; --------------------
