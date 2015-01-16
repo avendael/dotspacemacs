@@ -20,7 +20,8 @@
                                      osx
                                      python
                                      perspectives
-                                     themes-megapack)
+                                     themes-megapack
+                                     vim-empty-lines)
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '(ac-ispell
                                   neotree
