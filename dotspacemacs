@@ -123,6 +123,11 @@
   (setq dotspacemacs-active-transparency 90)
   (setq dotspacemacs-inactive-transparency 90))
 
+(defun avendael/config-persp-projectile ()
+  ;; Since projectile is lazy loaded, requiring persp-projectile should also be deferred
+  (eval-after-load 'projectile '(require 'persp-projectile))
+  (setq projectile-switch-project-action 'helm-projectile))
+
 ;; Initialization Hooks
 ;; --------------------
 (defun dotspacemacs/init ()
@@ -145,7 +150,8 @@ This function is called at the very end of Spacemacs initialization."
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
   (avendael/config-line-numbers)
-  (avendael/config-look-and-feel))
+  (avendael/config-look-and-feel)
+  (aveandael/config-persp-projectile))
 
 ;; Custom variables
 ;; ----------------
