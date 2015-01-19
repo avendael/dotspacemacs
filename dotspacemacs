@@ -98,14 +98,14 @@
                 (lambda () (interactive) (find-alternate-file ".."))))))
 
 (defun avendael/config-line-numbers ()
-  (global-linum-mode 1)
-  (linum-relative-toggle))
+  (add-hook 'prog-mode-hook 'linum-mode)
+  (linum-relative-toggle)
+  (setq linum-relative-format " %3s "))
 
 (defun avendael/config-look-and-feel ()
-  (set-face-attribute 'default nil :family "Inconsolata for Powerline" :height 150)
+  (set-face-attribute 'default nil :family "Menlo" :height 140)
   (setq initial-frame-alist (set-frame-parameter nil 'fullscreen 'fullheight))
 
-  (setq linum-relative-format " %3s ")
   (setq powerline-default-separator nil)
 
   ;; Set the powerline active face when the default theme is solarized-light
