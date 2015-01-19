@@ -151,7 +151,7 @@ This function is called at the very end of Spacemacs initialization."
 
   (avendael/config-line-numbers)
   (avendael/config-look-and-feel)
-  (aveandael/config-persp-projectile))
+  (avendael/config-persp-projectile))
 
 ;; Custom variables
 ;; ----------------
