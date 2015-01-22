@@ -1,6 +1,7 @@
 (defvar avendael-packages
   '(
     alchemist
+    editorconfig
     pretty-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
