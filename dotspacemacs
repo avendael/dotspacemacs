@@ -103,11 +103,12 @@
 (defun avendael/config-javascript ()
   (setq js2-mode-show-parse-errors nil)
   (setq js2-highlight-external-variables nil)
-  (setq js2-bounce-indent-p t)
+  (setq js2-bounce-indent-p nil)
   (setq js2-basic-offset 2))
 
 (defun avendael/config-line-numbers ()
   (add-hook 'prog-mode-hook 'linum-mode)
+  (add-hook 'conf-space-mode-hook 'linum-mode)
   (linum-relative-toggle)
   (setq linum-relative-format " %3s "))
 
