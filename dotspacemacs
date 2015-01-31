@@ -34,7 +34,7 @@
 
 (setq-default
  ;; Default theme applied at startup
- dotspacemacs-default-theme 'sanityinc-tomorrow-night
+ dotspacemacs-default-theme 'zenburn
  ;; The leader key
  dotspacemacs-leader-key "SPC"
  ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
@@ -160,8 +160,8 @@ This function is called at the very end of Spacemacs initialization."
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
   (avendael/config-evil)
+  (avendael/config-ediff)
   (avendael/config-javascript)
-
   (avendael/config-line-numbers)
   (avendael/config-look-and-feel)
   (avendael/config-persp-projectile))
