@@ -43,8 +43,8 @@
  ;; Press <SPC> T n to cycle to the next theme in the list (works great
  ;; with 2 themes variants, one dark and one light)
  dotspacemacs-themes '(ample-flat
-                       leuven
                        solarized-light
+                       leuven
                        solarized-dark
                        monokai
                        zenburn)
@@ -150,34 +150,46 @@
 (defun avendael/config-line-numbers ()
   (add-hook 'prog-mode-hook 'linum-mode)
   (add-hook 'conf-space-mode-hook 'linum-mode)
-  (linum-relative-toggle)
-  (setq linum-relative-format " %3s "))
+  (linum-relative-toggle))
 
 (defun avendael/config-look-and-feel ()
-  (set-face-attribute 'default nil :family "Menlo" :height 130)
+  (spacemacs/mode-line-battery-info-toggle)
+  (add-hook 'prog-mode-hook 'spacemacs/toggle-fill-column-indicator)
   (setq initial-frame-alist (set-frame-parameter nil 'fullscreen 'fullheight))
 
-  (setq powerline-default-separator nil)
+  (setq powerline-default-separator 'arrow-fade)
 
   ;; Set the powerline active face when the default theme is solarized-light
-  (when (eq spacemacs-cur-theme 'solarized-light)
-    (set-face-attribute 'powerline-active1
-                        nil :inherit 'mode-line :background "#93a1a1" :foreground "#eee8d5")
+  (when (eq spacemacs--cur-theme 'solarized-light)
+    (set-face-attribute 'powerline-active1 nil
+                        :inherit 'mode-line
+                        :background "#93a1a1"
+                        :foreground "#eee8d5")
     (set-face-attribute 'powerline-active2 nil
-                        :inherit 'mode-line :background "#eee8d5" :foreground "#fdff6e3")
+                        :inherit 'mode-line
+                        :background "#eee8d5"
+                        :foreground "#fdff6e3")
     (set-face-attribute 'powerline-inactive1 nil
-                        :inherit 'mode-line-inactive :background "#93a1a1" :foreground "#cccec4")
+                        :inherit 'mode-line-inactive
+                        :background "#93a1a1"
+                        :foreground "#cccec4")
     (set-face-attribute 'powerline-inactive2 nil
-                        :inherit 'mode-line :background "#eee8d5"))
+                        :inherit 'mode-line
+                        :background "#eee8d5"))
 
   ;; Set frame transparency levels
   (setq dotspacemacs-active-transparency 90)
   (setq dotspacemacs-inactive-transparency 90))
 
 (defun avendael/config-persp-projectile ()
-  ;; Since projectile is lazy loaded, requiring persp-projectile should also be deferred
+  ;; Since projectile is lazy loaded, persp-projectile should also be deferred
   (eval-after-load 'projectile '(require 'persp-projectile))
   (setq projectile-switch-project-action 'helm-projectile))
+
+(defun avendael/config-company-mode ()
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (setq company-minimum-prefix-length 1))
 
 ;; Initialization Hooks
 ;; --------------------
@@ -196,7 +208,6 @@ This function is called at the very end of Spacemacs initialization."
   ;; Workaround for ssh config ControlMaster auto and ControlPersist yes
   (setq tramp-default-method "scpx")
   ;; This is to allow yasnippet completion
-  (setq company-minimum-prefix-length 1)
   ;; Obliterate trailing whitespaces before saving
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -205,6 +216,7 @@ This function is called at the very end of Spacemacs initialization."
   (avendael/config-javascript)
   (avendael/config-line-numbers)
   (avendael/config-look-and-feel)
+  (avendael/config-company-mode)
   (avendael/config-persp-projectile))
 
 ;; Custom variables
