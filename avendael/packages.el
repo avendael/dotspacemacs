@@ -22,3 +22,8 @@ which require an initialization must be listed explicitly in the list.")
   (use-package pretty-mode
     :init
     (global-pretty-mode t)))
+
+(defun avendael/init-yaml-mode ()
+  (use-package yaml-mode
+    :config
+    (add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))))
