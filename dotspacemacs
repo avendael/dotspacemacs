@@ -154,7 +154,6 @@
 
 (defun avendael/config-look-and-feel ()
   (spacemacs/mode-line-battery-info-toggle)
-  (add-hook 'prog-mode-hook 'spacemacs/toggle-fill-column-indicator)
   (setq initial-frame-alist (set-frame-parameter nil 'fullscreen 'fullheight))
 
   (setq powerline-default-separator 'arrow-fade)
