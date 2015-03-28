@@ -25,6 +25,9 @@ An installation script is coming up, but for now:
 
 Yup, links everywhere.
 
+Additionally, refer to each configuration layer's requirements. For instance,
+the Evernote layer requires an installation of geeknote.
+
 ## Future work
 
 - Installation script
