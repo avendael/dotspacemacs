@@ -1,29 +1,29 @@
-(defvar avendael-packages
-  '(
-    editorconfig
-    jsx-mode
+(defconst avendael-packages
+  '(editorconfig
     pretty-mode
     react-snippets
-    yaml-mode
-    monokai-theme
     restclient
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    quack
+    (ac-ispell :excluded t)
+    (neotree :excluded t)))
 
-(defvar avendael-excluded-packages
-  '(ac-ispell
-    neotree
-    )
-  "List of packages to exclude.")
+(defun avendael/init-editorconfig ()
+  (use-package editorconfig
+    :defer t))
 
-;; Package init
 (defun avendael/init-pretty-mode ()
   (use-package pretty-mode
     :init
     (global-pretty-mode t)))
 
-(defun avendael/init-yaml-mode ()
-  (use-package yaml-mode
-    :config
-    (add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))))
+(defun avendael/init-react-snippets ()
+  (use-package react-snippets
+    :defer t))
+
+(defun avendael/init-restclient ()
+  (use-package restclient
+    :defer t))
+
+(defun avendael/init-quack ()
+  (use-package quack
+    :defer t))
